@@ -95,3 +95,93 @@ See the [LICENSE file](LICENSE.txt) for license rights and limitations.
 
 Please see [CONTRIBUTING.md](./CONTRIBUTING.md).
 [Join the Mattermost Contributors server](https://community.mattermost.com/signup_user_complete/?id=codoy5s743rq5mk18i7u5ksz7e) to join community discussions about contributions, development, and more.
+
+## Scalable Enterprise Search
+
+Mattermost now supports scalable enterprise search using Elasticsearch. This feature allows organizations to efficiently search through millions of messages with fast response times.
+
+### Features
+
+- Full-text search across all messages
+- Configurable index settings for optimal performance
+- Support for multiple Elasticsearch nodes
+- Automatic indexing of new messages
+- Data retention policies
+- Search term highlighting
+- Advanced search operators
+
+### Configuration
+
+To enable Elasticsearch integration, update your `config.json` with the following settings:
+
+```json
+{
+  "ElasticsearchSettings": {
+    "EnableIndexing": true,
+    "EnableSearching": true,
+    "ConnectionUrl": "http://localhost:9200",
+    "Username": "",
+    "Password": "",
+    "PostIndexReplicas": 1,
+    "PostIndexShards": 1,
+    "ChannelIndexReplicas": 1,
+    "ChannelIndexShards": 1,
+    "UserIndexReplicas": 1,
+    "UserIndexShards": 1
+  }
+}
+```
+
+### Development Setup
+
+1. Install Docker and Docker Compose
+2. Start Elasticsearch using the provided Docker Compose file:
+   ```bash
+   docker-compose -f docker-compose.elasticsearch.yml up -d
+   ```
+3. Configure Mattermost to use Elasticsearch as shown above
+4. Restart Mattermost
+
+### Production Deployment
+
+For production deployments, consider:
+
+1. Setting up a multi-node Elasticsearch cluster
+2. Configuring appropriate shard and replica counts
+3. Implementing monitoring and alerting
+4. Setting up regular backups
+5. Tuning JVM and system settings
+
+### Performance Considerations
+
+- Index sharding: Configure the number of shards based on your data volume
+- Memory settings: Adjust JVM heap size based on your data volume
+- Bulk indexing: Use bulk operations for initial data import
+- Query optimization: Use appropriate search parameters
+
+### Monitoring
+
+Monitor your Elasticsearch cluster using:
+- Elasticsearch's built-in monitoring
+- Prometheus and Grafana
+- Kibana
+
+### Troubleshooting
+
+Common issues and solutions:
+1. Slow search performance
+   - Check index settings
+   - Verify shard distribution
+   - Monitor system resources
+
+2. Indexing errors
+   - Check Elasticsearch logs
+   - Verify connectivity
+   - Check disk space
+
+3. Connection issues
+   - Verify network connectivity
+   - Check authentication settings
+   - Validate SSL/TLS configuration
+
+For more information, visit the [Mattermost documentation](https://docs.mattermost.com).

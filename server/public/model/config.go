@@ -4379,7 +4379,7 @@ func (s *ServiceSettings) isValid() *AppError {
 
 func (s *ElasticsearchSettings) isValid() *AppError {
 	if *s.EnableIndexing {
-		if *s.ConnectionURL == "" {
+		if *s.ConnectionUrl == "" {
 			return NewAppError("Config.IsValid", "model.config.is_valid.elastic_search.connection_url.app_error", nil, "", http.StatusBadRequest)
 		}
 	}
